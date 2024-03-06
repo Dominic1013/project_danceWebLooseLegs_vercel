@@ -38,8 +38,10 @@ export const signin = async (req, res, next) => {
     // create a cookie with JWT & User message
     res
       .cookie("access_token", token, {
-        // httpOnly: true, // 第三方網站不能使用cookie 不給JS訪問
+        httpOnly: true, // 第三方網站不能使用cookie 不給JS訪問
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+        secure: true,
+        sameSite: "None",
       })
       .status(200)
       .json(rest); //  rest也包含_id,都會被前端一並用dispatch()，將currentUser,loading,error存入localStorage裡面。
