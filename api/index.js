@@ -12,7 +12,7 @@ import listingRouter from "./routes/listing.route.js";
 import path from "path";
 
 dotenv.config();
-let port = 3000;
+const port = process.env.PORT || 5000;
 
 mongoose
   .connect(process.env.MONGO)
@@ -22,8 +22,6 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-const __dirname = path.resolve();
 
 const app = express();
 
@@ -40,15 +38,6 @@ app.listen(port, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
-
-//deploy static
-
-app.use(express.static(path.join(__dirname, "/client/dist")));
-
-//除了上面route以外的route
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
 
 //error catch
 app.use((err, req, res, next) => {

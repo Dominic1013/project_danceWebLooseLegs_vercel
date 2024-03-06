@@ -60,21 +60,6 @@ export const deleteUser = async (req, res, next) => {
   }
 };
 
-// export const getUserListings = async (req, res, next) => {
-//   if (req.user.id === req.params.id) {
-//     // req.user來自於verifyToken驗證後的結果，將導入的user，也就是jwt sign 時的validUser存進req.user之中。
-//     // req.params.id是來自於page上使用redux調用的currentUser
-//     // 我們要確認現在req的這個使用者，是不是剛剛登入的那位使用者（存在localStorage的那位），而不是別人。
-//     try {
-//       const listings = await Listing.find({ userRef: req.params.id });
-//       res.status(200).json(listings);
-//     } catch (error) {
-//       next(error);
-//     }
-//   } else {
-//     return next(errorHandler(401, "You can only view your own listings!"));
-//   }
-// };
 export const getUserListings = async (req, res, next) => {
   try {
     const listings = await Listing.find({ userRef: req.params.id });
