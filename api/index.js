@@ -11,13 +11,22 @@ import listingRouter from "./routes/listing.route.js";
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log(`收到來自 ${req.headers.origin} 的請求`);
+  next();
+});
+
 // middleware
 app.use(
   cors({
     credentials: true,
-    origin: true, 
+    origin: true,
   })
 );
+app.use((req, res, next) => {
+  console.log(`通過！`);
+  next();
+});
 
 // app.use(cors());
 // app.use(
