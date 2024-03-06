@@ -23,9 +23,16 @@ app.use((req, res, next) => {
 //     origin: true,
 //   })
 // );
+// app.use(
+//   cors({
+//     origin: "https://project-looselegs-v-client.vercel.app",
+//     credentials: true, // 允許跨域請求發送cookies
+//     methods: ["GET", "POST", "PUT", "DELETE"], // 允許的 HTTP 方法
+//   })
+// );
 app.use(
   cors({
-    origin: "https://project-looselegs-v-client.vercel.app",
+    origin: true,
     credentials: true, // 允許跨域請求發送cookies
     methods: ["GET", "POST", "PUT", "DELETE"], // 允許的 HTTP 方法
   })

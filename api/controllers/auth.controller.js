@@ -38,7 +38,7 @@ export const signin = async (req, res, next) => {
     // create a cookie with JWT & User message
     res
       .cookie("access_token", token, {
-        httpOnly: true, // 第三方網站不能使用cookie 不給JS訪問
+        // httpOnly: true, // 第三方網站不能使用cookie 不給JS訪問
         expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
       })
       .status(200)
@@ -62,7 +62,7 @@ export const google = async (req, res, next) => {
       const { password: pass, ...rest } = user._doc;
       res
         .cookie("access_token", token, {
-          httpOnly: true,
+          // httpOnly: true,
         })
         .status(200)
         .json(rest); // info turn to Json to client side
@@ -94,7 +94,7 @@ export const google = async (req, res, next) => {
       const { password: pass, ...rest } = newUser._doc;
       res
         .cookie("access_token", token, {
-          httpOnly: true,
+          // httpOnly: true,
         })
         .status(200)
         .json(rest);

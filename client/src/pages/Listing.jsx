@@ -142,12 +142,12 @@ export default function Listing() {
                   : listing.teacherName}
               </p>
             </Link>
-            <p className="text-subWhite-color mb-4 mt-4">
+            <div className="text-subWhite-color mb-4 mt-4">
               <p className="font-semibold text-primaryBrown-color">
                 Description -{" "}
               </p>
               {listing.description}
-            </p>
+            </div>
             <ul className="text-primaryBrown-color font-semibold text-sm flex flex-wrap items-center gap-4 sm:gap-6">
               <li className="flex items-center gap-1 whitespace-nowrap ">
                 <FaPeopleGroup className="text-lg" />

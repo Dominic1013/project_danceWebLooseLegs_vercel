@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 
 // this is verify middleware,if success, pass to next function.like user.route.js update
 export const verifyToken = (req, res, next) => {
+  console.log("into JWT verify");
   const token = req.cookies.access_token;
 
   if (!token) return errorHandler(401, "Unauthorized"); // maybe we can navigate user to login page(in frontEnd to mutate)(clear localStorage)

@@ -221,12 +221,14 @@ export default function CreateListing() {
       setLoading(false);
 
       if (data.success === false) {
+        console.log(data);
         setError(data.message);
       }
       // console.log(data);
       navigate(`/listing/${data._id}`); // Listing model自動生成的_id, not user id, user id 是在 currentUser._id，就是userRef
       // 這裡是要去listing的頁面，而不是後端api的listings route，仔細想想不要搞混。
     } catch (error) {
+      console.log(data + " catch error");
       setError(error.message);
       setLoading(false);
     }
