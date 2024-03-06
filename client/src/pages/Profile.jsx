@@ -162,6 +162,7 @@ export default function Profile() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        credentials: "include",
       });
       const data = await res.json();
 
@@ -178,6 +179,7 @@ export default function Profile() {
       alert("Update Success");
     } catch (error) {
       dispatch(updateUserFailure(error.message));
+      console.log(error.message);
       console.log("fail deep");
     }
   };
@@ -189,6 +191,7 @@ export default function Profile() {
       dispatch(deleteUserStart());
       const res = await fetch(`${apiUrl}/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       const data = res.json();
@@ -238,6 +241,7 @@ export default function Profile() {
     try {
       const res = await fetch(`${apiUrl}/api/listing/delete/${listingId}`, {
         method: "DELETE",
+        credentials: "include",
       });
 
       const data = await res.json();

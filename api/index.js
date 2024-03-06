@@ -9,8 +9,24 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import listingRouter from "./routes/listing.route.js";
 
-// path to deploy
-import path from "path";
+const app = express();
+
+// middleware
+app.use(
+  cors({
+    credentials: true,
+    origin: true, 
+  })
+);
+
+// app.use(cors());
+// app.use(
+//   cors({
+//     origin: ["https://project-looselegs-v-client.vercel.app"],
+//     methods: ["POST", "GET"],
+//     credentials: true,
+//   })
+// );
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -24,17 +40,6 @@ mongoose
     console.log(err);
   });
 
-const app = express();
-
-// middleware
-// app.use(cors());
-app.use(
-  cors({
-    origin: ["https://project-looselegs-v-client.vercel.app"],
-    methods: ["POST", "GET"],
-    credentials: true,
-  })
-);
 app.use(express.json());
 app.use(cookieParser());
 // app.use(express.urlencoded());

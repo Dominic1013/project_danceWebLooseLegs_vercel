@@ -214,6 +214,7 @@ export default function CreateListing() {
             ? currentUser.stageName
             : currentUser.username,
         }),
+        credentials: "include",
       });
 
       const data = await res.json();
