@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Contact({ listing }) {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [landlord, setLandlord] = useState(null);
   const [message, setMessage] = useState("");
 
@@ -14,7 +15,7 @@ export default function Contact({ listing }) {
     const fetchLandlord = async () => {
       try {
         //找到製作此頁面的使用者是誰，並且拿到它的資訊（重點是mail）
-        const res = await fetch(`/api/user/${listing.userRef}`);
+        const res = await fetch(`${apiUrl}/api/user/${listing.userRef}`);
 
         const data = await res.json();
         setLandlord(data);

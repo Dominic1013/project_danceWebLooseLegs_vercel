@@ -36,11 +36,14 @@ export default function Listing() {
   }, [contact]);
 
   useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
     const fetchListing = async () => {
       try {
         setLoading(true);
         // console.log(params);
-        const res = await fetch(`/api/listing/get/${params.listingId}`); // get req doesn't need to write method or body.
+        const res = await fetch(
+          `${apiUrl}/api/listing/get/${params.listingId}`
+        ); // get req doesn't need to write method or body.
         const data = await res.json();
         if (data.success === false) {
           setError(true);

@@ -23,10 +23,12 @@ export default function Home() {
   // }, [offerListings]);
 
   useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     // function offerListing
     const fetchOfferListings = async () => {
       try {
-        const res = await fetch(`/api/listing/get?offer=true&limit=4`); //  give me 4 offer listings
+        const res = await fetch(`${apiUrl}/api/listing/get?offer=true&limit=4`); //  give me 4 offer listings
         const data = await res.json();
         setOfferListings(data);
         fetchHOUSEListings(); // we put here bc we wnat fetch step by step (offer => HOUSE => HIPHOP)
@@ -37,7 +39,7 @@ export default function Home() {
     // function HOUSEListings
     const fetchHOUSEListings = async () => {
       try {
-        const res = await fetch(`/api/listing/get?type=HOUSE&limit=4`); //  give me 4 offer listings
+        const res = await fetch(`${apiUrl}/api/listing/get?type=HOUSE&limit=4`); //  give me 4 offer listings
         const data = await res.json();
         setHOUSEListings(data);
         fetchHIPHOPListings();
@@ -49,7 +51,9 @@ export default function Home() {
     // function HIPHOPListings
     const fetchHIPHOPListings = async () => {
       try {
-        const res = await fetch(`/api/listing/get?type=HIPHOP&limit=4`); //  give me 4 offer listings
+        const res = await fetch(
+          `${apiUrl}/api/listing/get?type=HIPHOP&limit=4`
+        ); //  give me 4 offer listings
         const data = await res.json();
         setHIPHOPListings(data);
         fetchPOPPINGListings();
@@ -60,7 +64,9 @@ export default function Home() {
     // function HIPHOPListings
     const fetchPOPPINGListings = async () => {
       try {
-        const res = await fetch(`/api/listing/get?type=POPPING&limit=4`); //  give me 4 offer listings
+        const res = await fetch(
+          `${apiUrl}/api/listing/get?type=POPPING&limit=4`
+        ); //  give me 4 offer listings
         const data = await res.json();
         setPOPPINGListings(data);
         fetchLOCKINGListings();
@@ -70,7 +76,9 @@ export default function Home() {
     };
     const fetchLOCKINGListings = async () => {
       try {
-        const res = await fetch(`/api/listing/get?type=LOCKING&limit=4`); //  give me 4 offer listings
+        const res = await fetch(
+          `${apiUrl}/api/listing/get?type=LOCKING&limit=4`
+        ); //  give me 4 offer listings
         const data = await res.json();
         setLOCKINGListings(data);
       } catch (error) {

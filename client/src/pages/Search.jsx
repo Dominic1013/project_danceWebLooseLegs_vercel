@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 
 export default function Search() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
   const [sidebarData, setSidebarData] = useState({
@@ -56,7 +57,7 @@ export default function Search() {
       setShowMore(false);
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/listing/get?${searchQuery}`);
+      const res = await fetch(`${apiUrl}/api/listing/get?${searchQuery}`);
       const data = await res.json();
       if (data.length > 8) {
         setShowMore(true);
@@ -139,7 +140,7 @@ export default function Search() {
     let searchQuery = urlParams.toString();
 
     //fetch data second time
-    let res = await fetch(`/api/listing/get?${searchQuery}`);
+    let res = await fetch(`${apiUrl}/api/listing/get?${searchQuery}`);
     let data = await res.json();
 
     // if fetchData.length < 9 , don.t show button again

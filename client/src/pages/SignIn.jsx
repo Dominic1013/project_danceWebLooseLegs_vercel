@@ -13,12 +13,12 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase";
 
 export default function SignIn() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   //FireBase用戶驗證
   const auth = getAuth(app);
 
   const [formData, setFormData] = useState({});
-  // const [error, setError] = useState(null);
-  // const [loading, setLoading] = useState(false);
+
   //redux
   const { loading, error } = useSelector((state) => state.user);
 
@@ -39,7 +39,7 @@ export default function SignIn() {
 
     try {
       dispatch(signInStart());
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch(`${apiUrl}/api/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +60,7 @@ export default function SignIn() {
       await signInWithEmailAndPassword(auth, formData.email, formData.password)
         .then((userCredential) => {
           //用戶成功登入 Firebase
-          console.log(userCredential.user); // 看看要不要放入redux
+          console.log(userCredential.user);
         })
         .catch((error) => {
           console.error(error);

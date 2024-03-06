@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function UpdateListing() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   // FireBase用戶驗證
   const auth = getAuth();
   const fireBaseUser = auth.currentUser;
@@ -43,7 +44,7 @@ export default function UpdateListing() {
     const fetchListing = async () => {
       const listingId = params.listingId; // in App.jsx, we call path "/update-listing/:listingId"
 
-      const res = await fetch(`/api/listing/get/${listingId}`);
+      const res = await fetch(`${apiUrl}/api/listing/get/${listingId}`);
       const data = await res.json();
       if (data.success === false) {
         alert(data.message);
@@ -213,13 +214,16 @@ export default function UpdateListing() {
       setLoading(true);
       setError(false);
 
-      const res = await fetch(`/api/listing/update/${params.listingId}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...formData, userRef: currentUser._id }),
-      });
+      const res = await fetch(
+        `${apiUrl}/api/listing/update/${params.listingId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...formData, userRef: currentUser._id }),
+        }
+      );
 
       const data = await res.json();
       setLoading(false);
@@ -229,7 +233,7 @@ export default function UpdateListing() {
       }
       //   console.log(data);
       navigate(`/listing/${data._id}`); // Listing model自動生成的_id, not user id, user id 是在 currentUser._id，就是userRef
-      // 這裡是要去listing的頁面，而不是後端api的listings route，仔細想想不要搞混。
+      // 這裡是要去listing的頁面。
     } catch (error) {
       setError(error.message);
       setLoading(false);

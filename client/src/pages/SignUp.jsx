@@ -7,6 +7,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { app } from "../firebase";
 
 export default function SignUp() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   //FireBase用戶驗證
   const auth = getAuth(app);
 
@@ -29,7 +30,7 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch(`${apiUrl}/api/auth/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,11 +54,9 @@ export default function SignUp() {
         formData.password
       )
         .then((userCredential) => {
-          // 用户成功注册 Firebase
-          console.log(userCredential.user); // 可以选择在这里进行一些操作，例如保存用户信息到 Redux
+          console.log(userCredential.user);
         })
         .catch((error) => {
-          // 处理错误，例如更新 UI 显示错误信息
           console.error(error);
         });
 
@@ -68,7 +67,6 @@ export default function SignUp() {
       setError(data.message);
     }
   };
-  // console.log(formData);
 
   return (
     <div className="p-3 max-w-lg mx-auto">

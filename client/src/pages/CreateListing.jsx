@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export default function CreateListing() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   // FireBase用戶驗證
   const auth = getAuth();
 
@@ -200,7 +201,7 @@ export default function CreateListing() {
       setLoading(true);
       setError(false);
 
-      const res = await fetch("/api/listing/create", {
+      const res = await fetch(`${apiUrl}/api/listing/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

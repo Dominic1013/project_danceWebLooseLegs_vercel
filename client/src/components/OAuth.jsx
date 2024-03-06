@@ -6,6 +6,7 @@ import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 
 export default function OAuth() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleGoogleClick = async () => {
@@ -18,7 +19,7 @@ export default function OAuth() {
       //   console.log(result);
 
       // create a user from google
-      const res = await fetch("/api/auth/google", {
+      const res = await fetch(`${apiUrl}/api/auth/google`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -31,8 +32,7 @@ export default function OAuth() {
       });
       //   console.log(res);
 
-      const data = await res.json(); // fetch API json()  把json轉成JS可讀語言
-      //   console.log(data);
+      const data = await res.json();
       dispatch(signInSuccess(data));
       navigate("/");
     } catch (error) {

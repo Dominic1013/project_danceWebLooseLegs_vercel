@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import ListingItem from "../components/ListingItem";
 
 export default function TeacherInfo() {
+  const apiUrl = import.meta.env.VITE_API_URL;
   const params = useParams();
   const [teacherData, setTeacherData] = useState({});
   const [teacherLists, setTeacherLists] = useState([]);
@@ -12,7 +13,9 @@ export default function TeacherInfo() {
     // get dynamic teacher's lists from different teacher
     const getTeacherLists = async () => {
       try {
-        const res = await fetch(`/api/user/listings/${params.teacherId}`);
+        const res = await fetch(
+          `${apiUrl}/api/user/listings/${params.teacherId}`
+        );
         const data = await res.json();
         // console.log(data);
 
@@ -28,7 +31,7 @@ export default function TeacherInfo() {
       try {
         setLoading(true);
         // console.log("start! loading be true!");
-        const res = await fetch(`/api/user/${params.teacherId}`);
+        const res = await fetch(`${apiUrl}/api/user/${params.teacherId}`);
         const data = await res.json();
         setTeacherData(data);
         setLoading(false);

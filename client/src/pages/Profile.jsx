@@ -54,6 +54,8 @@ export default function Profile() {
   //checkBox upload & get data--------------------------------
   const [selectedStyles, setSelectedStyles] = useState([]);
 
+  const apiUrl = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     setSelectedStyles(currentUser.styles || []);
   }, [currentUser.styles]);
@@ -154,7 +156,7 @@ export default function Profile() {
     e.preventDefault();
     try {
       dispatch(updateUserStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${apiUrl}/api/user/update/${currentUser._id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -185,7 +187,7 @@ export default function Profile() {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetch(`${apiUrl}/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
 
@@ -203,7 +205,7 @@ export default function Profile() {
   const handleSignOut = async () => {
     try {
       dispatch(signOutStart());
-      const res = await fetch("/api/auth/signout");
+      const res = await fetch(`${apiUrl}/api/auth/signout`);
 
       const data = await res.json();
       // console.log(data);
@@ -218,7 +220,7 @@ export default function Profile() {
   const handleShowListings = async () => {
     try {
       setShowListingsError(false);
-      const res = await fetch(`/api/user/listings/${currentUser._id}`);
+      const res = await fetch(`${apiUrl}/api/user/listings/${currentUser._id}`);
       const data = await res.json();
       if (data.success === false) {
         setShowListingsError(true);
@@ -234,7 +236,7 @@ export default function Profile() {
 
   const handleListingDelete = async (listingId) => {
     try {
-      const res = await fetch(`/api/listing/delete/${listingId}`, {
+      const res = await fetch(`${apiUrl}/api/listing/delete/${listingId}`, {
         method: "DELETE",
       });
 
