@@ -30,7 +30,7 @@ const app = express();
 // app.use(cors());
 app.use(
   cors({
-    origin: ["https://project-looselegs-v-client.vercel.app/"],
+    origin: ["https://project-looselegs-v-client.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
