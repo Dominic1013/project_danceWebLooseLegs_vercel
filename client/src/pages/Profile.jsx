@@ -160,6 +160,7 @@ export default function Profile() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: JSON.stringify(formData),
         credentials: "include",
@@ -191,6 +192,9 @@ export default function Profile() {
       dispatch(deleteUserStart());
       const res = await fetch(`${apiUrl}/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
         credentials: "include",
       });
 
@@ -241,6 +245,9 @@ export default function Profile() {
     try {
       const res = await fetch(`${apiUrl}/api/listing/delete/${listingId}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
         credentials: "include",
       });
 

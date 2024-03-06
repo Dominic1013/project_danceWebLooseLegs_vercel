@@ -17,6 +17,11 @@ const userSlice = createSlice({
       state.currentUser = action.payload; // get user data in redux for g state
       state.loading = false;
       state.error = null;
+      if (action.payload === null) {
+        localStorage.removeItem("accessToken");
+      } else {
+        localStorage.setItem("accessToken", action.payload.token);
+      }
     },
     signInFailure: (state, action) => {
       state.loading = false;
@@ -41,6 +46,7 @@ const userSlice = createSlice({
       state.currentUser = null;
       state.loading = false;
       state.error = null;
+      localStorage.removeItem("accessToken");
     },
     deleteUserFailure: (state, action) => {
       state.loading = false;
@@ -53,6 +59,7 @@ const userSlice = createSlice({
       state.currentUser = null;
       state.loading = false;
       state.error = null;
+      localStorage.removeItem("accessToken");
     },
     signOutFailure: (state, action) => {
       state.loading = false;

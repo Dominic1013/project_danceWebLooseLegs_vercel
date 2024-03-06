@@ -32,21 +32,14 @@ export const signin = async (req, res, next) => {
     if (!validPassword) return next(errorHandler(401, "Wrong cridential!")); // use our own error to pass
 
     // sign the JWT for user browser
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET); // 第一個是確認使用者獨一無二token，第二個是確認網站JWT獨一無二
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    }); // 第一個是確認使用者獨一無二token，第二個是確認網站JWT獨一無二
 
     // prevent password(even hashed) in res info to user, this is more safe.
     const { password: pass, ...rest } = validUser._doc; // User data 都在 _doc下方
 
-    // create a cookie with JWT & User message
-    res
-      .cookie("access_token", token, {
-        httpOnly: true, // 第三方網站不能使用cookie 不給JS訪問
-        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
-        secure: true,
-        sameSite: "None",
-      })
-      .status(200)
-      .json(rest); //  rest也包含_id,都會被前端一並用dispatch()，將currentUser,loading,error存入localStorage裡面。
+    res.status(200).json({ token, ...rest, id: validUser._id });
   } catch (error) {
     next(error);
   }
@@ -62,14 +55,11 @@ export const google = async (req, res, next) => {
     if (user) {
       // have this user
       // jwt.sign(payload, secret, options)
-      const token = jwt.sign({ id: user._id }, "dominic");
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "24h",
+      });
       const { password: pass, ...rest } = user._doc;
-      res
-        .cookie("access_token", token, {
-          // httpOnly: true,
-        })
-        .status(200)
-        .json(rest); // info turn to Json to client side
+      res.status(200).json({ token, ...rest, id: user._id });
     } else {
       // create a new User
       // because google Auth user Doesn't have password, we need to create one
@@ -96,12 +86,7 @@ export const google = async (req, res, next) => {
       // and also login it, give user JWT
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
       const { password: pass, ...rest } = newUser._doc;
-      res
-        .cookie("access_token", token, {
-          // httpOnly: true,
-        })
-        .status(200)
-        .json(rest);
+      res.status(200).json({ token, ...rest, id: user._id });
     }
   } catch (error) {
     next(error);
@@ -110,7 +95,6 @@ export const google = async (req, res, next) => {
 
 export const signOut = async (req, res, next) => {
   try {
-    res.clearCookie("access_token");
     res.status(200).json("User has been logged out!");
   } catch (error) {
     next(error);

@@ -47,9 +47,9 @@ export default function SignIn() {
         body: JSON.stringify(formData),
         credentials: "include",
       });
-      console.log(res);
+      // console.log(res);
       const data = await res.json();
-      console.log(data);
+      // console.log(data);
 
       if (data.success === false) {
         dispatch(signInFailure(data.message));
