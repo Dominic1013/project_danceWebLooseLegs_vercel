@@ -17,12 +17,20 @@ app.use((req, res, next) => {
 });
 
 // middleware
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: true,
+//   })
+// );
 app.use(
   cors({
-    credentials: true,
-    origin: true,
+    origin: "https://project-looselegs-v-client.vercel.app",
+    credentials: true, // 允許跨域請求發送cookies
+    methods: ["GET", "POST", "PUT", "DELETE"], // 允許的 HTTP 方法
   })
 );
+
 app.use((req, res, next) => {
   console.log(`通過！`);
   next();
